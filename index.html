@@ -275,68 +275,6 @@ section {
 
   <link rel="icon" type="image/png" href="logo.png?v=2">
 
-  /* ローディング画面全体のスタイル */
-#loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #1a1a1a; /* 暗めの背景で集中させる */
-  z-index: 9999; /* 何よりも一番上に表示 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.8s ease; /* 消える時のアニメーション */
-}
-
-/* 中央のコンテンツ */
-.loader-content {
-  text-align: center;
-}
-
-.loader-logo {
-  width: 150px;
-  height: auto;
-  margin-bottom: 20px;
-  /* 国鉄風に少し色を抑えるなら */
-  filter: grayscale(20%);
-}
-
-/* 読み込みバー */
-.loading-bar-container {
-  width: 200px;
-  height: 4px;
-  background: #333;
-  margin: 10px auto;
-  overflow: hidden;
-  border-radius: 2px;
-}
-
-.loading-bar {
-  width: 100%;
-  height: 100%;
-  background-color: #1a237e; /* 国鉄ブルー */
-  animation: loadingAnim 2s infinite linear;
-}
-
-@keyframes loadingAnim {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.loading-text {
-  color: #fff;
-  font-family: "Noto Sans JP", sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.2em;
-}
-
-/* 読み込み完了後に消すためのクラス */
-.loaded {
-  opacity: 0;
-  pointer-events: none;
-}
   
 </style>
 </head>
