@@ -586,6 +586,38 @@ updateTrainStatus();
 
 // 1分ごとに自動更新
 setInterval(updateTrainStatus, 60000);
+
+  function updateTrainStatus() {
+  const now = new Date();
+  const hour = now.getHours();
+  const statusElement = document.getElementById('status-text');
+
+  if (!statusElement) return;
+
+  // 9:00〜15:59の間だけ判定
+  if (hour >= 9 && hour < 16) {
+    
+    // --- ここでランダム判定（0から1の数字を作る） ---
+    // 0.2未満（＝20%の確率）なら遅延
+    if (Math.random() < 0.2) {
+      statusElement.textContent = "【遅延情報】現在、一部区間で遅延が発生しています。お急ぎのところご迷惑をおかけします。";
+      statusElement.style.background = "rgba(200, 0, 0, 0.8)"; // 警告の赤色
+      statusElement.style.fontWeight = "bold";
+    } else {
+      statusElement.textContent = "現在、列車は平常通り運行しています。遅延情報はありません。";
+      statusElement.style.background = "rgba(0, 100, 0, 0.7)"; // 平常の緑色
+    }
+    
+  } 
+  else if (hour < 9) {
+    statusElement.textContent = "本日の始発は 9:00 です。運行開始までしばらくお待ちください。";
+    statusElement.style.background = "rgba(0, 50, 100, 0.7)";
+  } 
+  else {
+    statusElement.textContent = "本日の運行は終了しました。またのご利用をお待ちしております。";
+    statusElement.style.background = "rgba(100, 100, 100, 0.8)";
+  }
+}
 </script>
 </body>
 </html>
