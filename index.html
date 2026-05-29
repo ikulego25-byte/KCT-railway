@@ -298,7 +298,7 @@ section {
   </div>
 
   <!-- 横切る列車演出 -->
-  <div class="train-pass">現在、列車は平常通り運行しています。遅延や運休などの情報はありません。</div>
+  <div class="train-pass" id="status-text">運行情報を読み込み中...</div>
 
   <div class="scroll">▼ Scroll</div>
 </header>
@@ -559,6 +559,33 @@ function changeSlide() {
 changeSlide();
 
 setInterval(changeSlide, 5000);
+  function updateTrainStatus() {
+  const now = new Date();
+  const hour = now.getHours();
+  const statusElement = document.getElementById('status-text');
+
+  // 条件：9:00〜15:59（16:00より前）の間だけ「運行中」
+  if (hour >= 9 && hour < 16) {
+    statusElement.textContent = "現在、列車は平常通り運行しています。遅延情報はありません。";
+    statusElement.style.background = "rgba(0, 100, 0, 0.7)"; // 運行中は緑色
+  } 
+  // 朝の9時より前の場合
+  else if (hour < 9) {
+    statusElement.textContent = "本日の始発は 9:00 です。運行開始までしばらくお待ちください。";
+    statusElement.style.background = "rgba(0, 50, 100, 0.7)"; // 早朝は落ち着いた紺色
+  } 
+  // 16時以降の場合
+  else {
+    statusElement.textContent = "本日の運行は終了しました。またのご利用をお待ちしております。";
+    statusElement.style.background = "rgba(100, 100, 100, 0.8)"; // 終了後はグレー
+  }
+}
+
+// ページを開いた時に実行
+updateTrainStatus();
+
+// 1分ごとに自動更新
+setInterval(updateTrainStatus, 60000);
 </script>
 </body>
 </html>
