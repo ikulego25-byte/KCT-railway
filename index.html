@@ -527,7 +527,7 @@ section {
     <ul>
       <li>合計2駅の路線</li>
       <li>駅の間隔が1km未満</li>
-      <li>3分間隔での列車運行</li>
+      <li>10分間隔での列車運行</li>
     </ul>
   </div>
 </section>
@@ -641,7 +641,7 @@ function toTime(min) {
   return `${h}:${m.toString().padStart(2,'0')}`;
 }
 
-for (let t = 540; t <= 960; t += 3) {
+for (let t = 540; t <= 960; t += 10) {
   const row = document.createElement("tr");
 
   const dep = document.createElement("td");
