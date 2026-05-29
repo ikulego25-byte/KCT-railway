@@ -408,6 +408,64 @@ section {
     opacity: 0; /* 最後は透明に戻る */
   }
 }
+
+/* SNS枠全体 */
+.sns-container {
+  max-width: 500px;
+  margin: 20px auto;
+  border: 2px solid #1a237e; /* 国鉄ブルーの枠 */
+  background: #fff;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+/* ヘッダー部分 */
+.sns-header {
+  background-color: #1a237e;
+  color: #fff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sns-title { font-weight: bold; font-size: 16px; }
+.sns-id { font-size: 12px; opacity: 0.8; }
+
+/* タイムライン部分 */
+.sns-timeline {
+  max-height: 400px; /* 長くなったらスクロールさせる */
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+/* 各投稿のスタイル */
+.sns-post {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sns-post:last-child { border-bottom: none; }
+
+.post-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.post-tag {
+  color: #1a237e;
+  font-weight: bold;
+}
+
+.post-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+  
 </style>
 
 <section id="about">
@@ -438,6 +496,37 @@ section {
       <li>駅の間隔が1km未満</li>
       <li>3分間隔での列車運行</li>
     </ul>
+  </div>
+</section>
+
+  <section class="sns-container">
+  <div class="sns-header">
+    <span class="sns-title">錦中鉄道 公式情報</span>
+    <span class="sns-id">@kincyuu_Rail</span>
+  </div>
+  
+  <div class="sns-timeline">
+    <div class="sns-post">
+      <div class="post-meta">
+        <span class="post-date">2026/05/29</span>
+        <span class="post-tag">#錦中鉄道</span>
+      </div>
+      <p class="post-content">
+        【木造駅舎の魅力】錦中駅の待合室に、地元の方が生けてくださった季節の花が飾られています。
+        古い木の香りと共に、どうぞお楽しみください。
+      </p>
+    </div>
+
+    <div class="sns-post">
+      <div class="post-meta">
+        <span class="post-date">2026/05/25</span>
+        <span class="post-tag">#お知らせ</span>
+      </div>
+      <p class="post-content">
+        本日より「錦中鉄道 復刻デザイン切符」を限定販売いたします。
+        国鉄時代の硬券を再現したこだわりの1枚です！
+      </p>
+    </div>
   </div>
 </section>
 
