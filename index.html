@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>錦中鉄道架空会社（KCT）</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  background: #f3f2ee;
+  color: #2b2b2b;
+}
+
+/* 上部ナビ（第三セクター風・簡素） */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #2f3b2f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.nav a:hover {
+  opacity: 1;
+}
+
+/* ヒーロー */
+header {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #000 center/cover no-repeat; /* slideshow will control background */
+  position: relative;
+  color: white;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 60, 35, 0.6);
+}
+
+header .content {
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1.5s ease;
+}
+
+header img.logo {
+  width: 110px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+}
+
+header h1 {
+  font-size: 40px;
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+
+.scroll {
+  position: absolute;
+  bottom: 20px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+section {
+  max-width: 900px;
+  margin: auto;
+  padding: 70px 20px;
+}
+
+h2 {
+  border-left: 4px solid #4a6b4a;
+  padding-left: 10px;
+  margin-top: 50px;
+  color: #2f3b2f;
+}
+
+.box {
+  background: white;
+  padding: 18px;
+  margin: 18px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(25px);
+  transition: 0.8s;
+}
+
+.box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+img.full {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* ちょいローカル感のニュース枠 */
+.news {
+  background: #e8efe8;
+  border-left: 4px solid #4a6b4a;
+  padding: 12px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  background: #2f3b2f;
+  color: white;
+  margin-top: 60px;
+  font-size: 13px;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+/* ===== スマホ対応ナビ ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #2f3b2f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  z-index: 1000;
+}
+
+.logo-mini {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  justify-content: center;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.menu a:hover {
+  opacity: 1;
+}
+
+.hamburger {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background: #2f3b2f;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .menu.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+/* ナビ スクロール変化 */
+.nav {
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.nav.transparent {
+  background: rgba(47,59,47,0.25);
+  backdrop-filter: blur(6px);
+}
+
+.nav.scrolled {
+  background: #2f3b2f;
+}
+
+/* アンカーずれ対策 */
+section {
+  scroll-margin-top: 80px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="nav">
+  <div class="logo-mini">KCT</div>
+  <div class="menu" id="menu">
+    <a href="#top">TOP</a>
+    <a href="#about">会社案内</a>
+    <a href="#route">路線</a>
+    <a href="#cars">車両</a>
+    <a href="#timetable">時刻表</a>
+  </div>
+  <div class="hamburger" id="hamburger">☰</div>
+</div>
+
+<header id="top">
+  <div class="content">
+    <img class="logo" src="logo.png" alt="ロゴ">
+    <h1>錦中鉄道株式会社</h1>
+    <img src="20260529_122113.jpg" alt="鉄道写真" style="width:700px;border-radius:10px;margin-top:15px;">
+  </div>
+
+  <!-- 横切る列車演出 -->
+  <div class="train-pass">現在、列車は平常通り運行しています。遅延や運休などの情報はありません。</div>
+
+  <div class="scroll">▼ Scroll</div>
+</header>
+
+<style>
+.train-pass {
+  position: absolute;
+  bottom: 80px;
+  right: -600px; /* 文字が長い場合は少し余裕を持たせて外側に配置 */
+  font-size: 24px;
+  z-index: 2;
+  animation: runTrainRightToLeft 12s linear infinite;
+  white-space: nowrap;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+@keyframes runTrainRightToLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 0; /* 最初は透明 */
+  }
+  5% {
+    opacity: 1; /* 開始5%の地点で完全に表示 */
+  }
+  95% {
+    opacity: 1; /* 終了直前まで表示 */
+  }
+  100% {
+    transform: translateX(calc(-100vw - 1000px)); /* 文字が長いので移動量を多めに */
+    opacity: 0; /* 最後は透明に戻る */
+  }
+}
+</style>
+
+<section id="about">
+
+  <div class="news">
+    【2026/05/29】糸町線では春の増結運転を実施しています（3/1〜）<br>
+    【2026/05/29】イベント列車を運行予定！
+  </div>
+
+  <div class="box">
+    <h2>KCT 錦中鉄道</h2>
+    <p>
+錦中鉄道（KCT）は、地域の暮らしを支えるローカル鉄道会社です。
+山あいの町と海辺の集落を結び、通学・通勤輸送を中心に観光輸送も行っています。
+
+本社では車両の整備や運行管理を行っており、小規模ながらも地域に密着した運営を続けています。
+沿線には無人駅や設立当初から変わらない駅舎が点在し、どこか懐かしい風景が広がります。
+
+主力車両には、国鉄型気動車を改造した一般車両や、入れ換えディーゼル機関車などが在籍しています。
+単行運転から2両編成運転まで柔軟に対応し、朝夕は通学列車、休日は観光列車として活躍しています。
+
+「地域とともに走る鉄道」をコンセプトに、今日も錦中鉄道はゆっくりと沿線を走り続けています。
+    </p>
+
+    <h3>糸町線の特徴</h3>
+    <ul>
+      <li>合計2駅の路線</li>
+      <li>駅の間隔が1km未満</li>
+      <li>3分間隔での列車運行</li>
+    </ul>
+  </div>
+</section>
+
+<section id="route">
+  <h2>糸町線 路線図</h2>
+  <div class="box">
+    <img class="full" src="rosenzu.png" alt="路線図" id="routeMap" style="cursor:pointer;">
+    <p style="font-size:13px; color:#555;">※路線図をクリックすると駅情報が表示されます</p>
+
+    <div id="stationInfo" style="margin-top:15px; padding:10px; background:#e8efe8; border-left:4px solid #4a6b4a; display:none;">
+      <h3 id="stationName"></h3>
+      <p id="stationDesc"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+const map = document.getElementById('routeMap');
+const info = document.getElementById('stationInfo');
+const nameEl = document.getElementById('stationName');
+const descEl = document.getElementById('stationDesc');
+
+map.addEventListener('click', (e) => {
+  const x = e.offsetX / map.clientWidth;
+
+  let station = {};
+
+  if (x < 0.5) {
+    station = {
+      name: '木上駅（きのうえ）',
+      desc: '糸町線の起点駅。周辺は住宅地が広がり、通学利用が多い主要駅です。'
+    };
+  } else {
+    station = {
+      name: '森下駅（もりした）',
+      desc: '糸町線の終点駅。山あいに位置し、観光客の利用も見られる静かな駅です。'
+    };
+  }
+
+  nameEl.textContent = station.name;
+  descEl.textContent = station.desc;
+  info.style.display = 'block';
+});
+</script>
+
+<section id="cars">
+  <h2>錦中鉄道株式会社（KCT）糸町線 車両紹介</h2>
+
+  <div class="box">
+    <h3>キハ26-919</h3>
+    <img class="full" src="1000057689.jpg">
+    <p>
+キハ26-919は、老朽化により引退した国鉄型気動車「キハ20」を譲り受け、糸町線向けに改造した気動車です。
+単行運転を中心に活躍し、国鉄一般色を意識した塗装が特徴です。
+    </p>
+  </div>
+
+  <div class="box">
+    <h3>キハ43-251</h3>
+    <img class="full" src="1000057691.jpg">
+    <p>
+キハ43-251は、引退したキハ40を改造した主力車両です。
+地域輸送を支える中心的存在として運行されています。
+    </p>
+  </div>
+
+  <div class="box">
+    <h3>DB10-3</h3>
+    <img class="full" src="1000057692.jpg">
+    <p>
+DB10-3は入れ換え作業や保線用途に使用されるディーゼル機関車です。
+車両基地での作業を中心に活躍しています。
+    </p>
+  </div>
+</section>
+
+<section id="timetable">
+  <h2>時刻表（糸町線）</h2>
+  <div class="box">
+    <table id="timetableTable" style="width:100%; border-collapse: collapse; font-size:14px;">
+  <tr style="background:#e8efe8;">
+    <th style="padding:8px; border:1px solid #ccc;">木上駅 発</th>
+    <th style="padding:8px; border:1px solid #ccc;">森下駅 着</th>
+  </tr>
+</table>
+      
+      </tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  © KCT 錦中鉄道株式会社
+</footer>
+<script>
+const table = document.getElementById("timetableTable");
+
+function toTime(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return `${h}:${m.toString().padStart(2,'0')}`;
+}
+
+for (let t = 540; t <= 960; t += 3) {
+  const row = document.createElement("tr");
+
+  const dep = document.createElement("td");
+  const arr = document.createElement("td");
+
+  dep.textContent = toTime(t);
+  arr.textContent = toTime(t + 1);
+
+  dep.style = arr.style = "padding:8px; border:1px solid #ccc;";
+
+  row.appendChild(dep);
+  row.appendChild(arr);
+  table.appendChild(row);
+}
+</script>
+<script>
+const boxes = document.querySelectorAll('.box');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+});
+boxes.forEach(box => observer.observe(box));
+</script>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const menu = document.getElementById('menu');
+
+hamburger.addEventListener('click', () => {
+  menu.classList.toggle('show');
+});
+</script>
+<script>
+const hamburger = document.getElementById('hamburger');
+const menu = document.getElementById('menu');
+const nav = document.querySelector('.nav');
+
+hamburger.addEventListener('click', () => {
+  menu.classList.toggle('show');
+});
+
+// スクロールでナビ色変更
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+    nav.classList.remove('transparent');
+  } else {
+    nav.classList.add('transparent');
+    nav.classList.remove('scrolled');
+  }
+});
+
+// 初期状態
+window.addEventListener('load', () => {
+  if (window.scrollY <= 50) {
+    nav.classList.add('transparent');
+  }
+});
+</script>
+<script>
+// ===== ヒーロースライドショー背景 =====
+const hero = document.querySelector('header');
+
+const slides = [
+  'hero.jpg',
+  'hero2.jpg',
+  'hero3.jpg'
+];
+
+let index = 0;
+
+function changeSlide() {
+  hero.style.backgroundImage = `url('${slides[index]}')`;
+  hero.style.backgroundSize = 'cover';
+  hero.style.backgroundPosition = 'center';
+  index = (index + 1) % slides.length;
+}
+
+// 初期表示
+changeSlide();
+
+setInterval(changeSlide, 5000);
+</script>
+</body>
+</html>
