@@ -13,6 +13,23 @@ body {
   color: #2b2b2b;
 }
 
+  /* 全体のはみ出しを強制カット */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* ナビゲーションバーが画面幅を超えないようにする */
+.nav {
+  width: 100%;
+  box-sizing: border-box; /* パディングを幅に含める */
+  left: 0;
+  right: 0;
+}
+  
 /* 上部ナビ（第三セクター風・簡素） */
 .nav {
   position: fixed;
@@ -49,6 +66,12 @@ header {
   background: #000 center/cover no-repeat; /* slideshow will control background */
   position: relative;
   color: white;
+}
+
+  header {
+  position: relative;
+  overflow: hidden; /* ヘッダーからはみ出すアニメーションを隠す */
+  width: 100%;
 }
 
 header::after {
@@ -184,16 +207,43 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .menu {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    background: #2f3b2f;
-    flex-direction: column;
-    padding: 10px;
-    border-radius: 8px;
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px; /* 左右に15pxの安全地帯を作る */
+    height: 60px;
   }
+
+  .logo-mini {
+    margin-left: 5px;
+  }
+
+  .hamburger {
+    display: block;
+    position: relative; /* 絶対配置ではなく相対配置で安全に置く */
+    right: 0; /* paddingがあるのでこれだけで内側に寄る */
+    font-size: 28px;
+    color: white;
+    background: rgba(255,255,255,0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 1001;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; /* タップ時の青枠消し */
+  }
+
+  /* メニューの中身も画面内に収める */
+  .menu {
+    position: absolute;
+    top: 60px;
+    right: 15px; /* navのpaddingに合わせる */
+    width: auto;
+    min-width: 140px;
+    background: #2f3b2f;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+}
 
   .menu.show {
     display: flex;
