@@ -767,7 +767,7 @@ setInterval(updateTrainStatus, 60000);
     // --- ここでランダム判定（0から1の数字を作る） ---
     // 0.2未満（＝20%の確率）なら遅延
     if (Math.random() < 0.2) {
-      statusElement.textContent = "【遅延情報】現在、一部区間で遅延が発生しています。お急ぎのところご迷惑をおかけします。";
+      statusElement.textContent = "【遅延情報】車両故障により全区間で遅延が発生しています。お急ぎのところご迷惑をおかけします。";
       statusElement.style.background = "rgba(200, 0, 0, 0.8)"; // 警告の赤色
       statusElement.style.fontWeight = "bold";
     } else {
